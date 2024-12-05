@@ -1,0 +1,36 @@
+name: Examen DAW
+on: push
+jobs:
+    job-nombres:
+      runs-on: ubuntu-latest
+      steps:
+         - 
+           name: nombre de usuario
+           run: echo ${{github.actor}}
+
+         - 
+            name: nombre repositorio
+            run: echo ${{github.repository}}
+
+         - 
+            name: nombre rama
+            run: echo ${{github.ref_name}}
+        
+    job-build-y-push:
+        runs-on: ubuntu-latest
+        steps:
+            -
+             name: Copiar código
+             uses: actions/checkout@v4
+            - 
+             name: Login en Docker Hub
+             uses: docker/login-action@v3
+             with:
+               username: ${{ secrets.DOCKERHUB_USERNAME }}
+               password: ${{ secrets.DOCKER_TOKEN }}
+            -
+             name: Build y push a docker
+             uses: docker/build-push-action@v6
+             with:
+               push: true
+               tags: yagoo23/examen-back:latest

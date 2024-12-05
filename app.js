@@ -9,6 +9,7 @@ app.use(cors({
     origin: '*'
 }));
 
+
 // Ruta para la suma
 app.get('/sumar', (req, res) => {
     const { num1, num2 } = req.query;
